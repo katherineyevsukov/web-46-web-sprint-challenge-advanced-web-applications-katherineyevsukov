@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from 'axios';
 
 
@@ -7,13 +7,18 @@ const initialLoginValues = {
   password: ''
 }
 
-const Login = () => {
+
+
+const Login = (props) => {
+
+  
   
   const [loginValues, setLoginValues] = useState(initialLoginValues)
+  const [error, setError] = useState('')
   // make a post request to retrieve a token from the api
   // when you have handled the token, navigate to the BubblePage route
 
-  const error = "";
+  
   //replace with error state
 
   const handleChange = (e) => {
@@ -29,11 +34,19 @@ const Login = () => {
     axios.post('http://localhost:5000/api/login', loginValues)
       .then(res => {
         localStorage.setItem("token", res.data.payload)
+        props.history.push('/bubbles')
       })
       .catch(err => {
-        console.log(err)
+        setError(err.message)
       })
   }
+
+  // useEffect(() => {
+  //   return function cleanup(){
+  //     setError('')
+  //     setLoginValues(initialLoginValues)
+  //   }
+  // })
 
 
   return (
