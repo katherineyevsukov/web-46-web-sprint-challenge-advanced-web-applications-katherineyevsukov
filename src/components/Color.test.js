@@ -19,7 +19,18 @@ test("Renders the color passed into component", () => {
     expect(displayColor).not.toBeNull()
 });
 
-test("Executes handleDelete and toggleEdit property when the 'x' icon is clicked", () => {
+test("Executes handleDelete and toggleEdit property when the 'x' icon is clicked", async () => {
+    const testColor = {color: "hotpink", code: { hex: "#FF69B4" }}
+    const mockToggleEdit = jest.fn()
+    const mockDeleteColor = jest.fn()
+    render(<Color color={testColor} toggleEdit={mockToggleEdit} deleteColor={mockDeleteColor}/>)
+    const xButton = await screen.findByTestId("delete")
+    expect(xButton).toBeInTheDocument()
+    userEvent.click(xButton)
+    await waitFor(() => {
+        expect(mockDeleteColor).toBeCalledTimes(1)
+        expect(mockToggleEdit).toBeCalledTimes(1)
+    })
 });
 
 test("Executes setEditColor and toggleEdit property when color div is clicked", () => {
