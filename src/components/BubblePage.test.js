@@ -55,3 +55,5 @@ await waitFor(() => {
 })
 
 });
+
+export { mockData }
