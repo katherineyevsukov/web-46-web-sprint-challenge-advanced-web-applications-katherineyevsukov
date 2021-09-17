@@ -13,6 +13,10 @@ test("Renders without errors with blank color passed into component", () => {
 });
   
 test("Renders the color passed into component", () => {
+    const testColor = {color: "hotpink", code: { hex: "#FF69B4" }}
+    render(<Color color={testColor} />)
+    const displayColor = screen.queryByText('hotpink')
+    expect(displayColor).not.toBeNull()
 });
 
 test("Executes handleDelete and toggleEdit property when the 'x' icon is clicked", () => {
