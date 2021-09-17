@@ -48,10 +48,10 @@ test("Executes setEditColor and toggleEdit property when color div is clicked", 
       setEditColor={mockSetEditColor}
     />
   );
-  const div = await screen.findByTestId('color') 
-  userEvent.click(div)
+  const div = await screen.findByTestId("color");
+  userEvent.click(div);
   await waitFor(() => {
-    expect(mockToggleEdit).toBeCalledTimes(1)
-    expect(mockSetEditColor).toBeCalledTimes(1)
-  })
+    expect(mockToggleEdit).toBeCalledTimes(1);
+    expect(mockSetEditColor).toBeCalledTimes(1);
+  });
 });
