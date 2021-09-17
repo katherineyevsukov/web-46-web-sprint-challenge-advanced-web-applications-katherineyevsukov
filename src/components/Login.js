@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import axios from 'axios';
+
 
 const initialLoginValues = {
   username: '',
@@ -19,7 +21,18 @@ const Login = () => {
       ...loginValues,
       [e.target.name]: e.target.value
     })
-    console.log(loginValues)
+  }
+
+  const handleLogin = e => {
+    e.preventDefault();
+
+    axios.post('http://localhost:5000/api/login', loginValues)
+      .then(res => {
+        localStorage.setItem("token", res.data.payload)
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
 
@@ -28,6 +41,7 @@ const Login = () => {
       <h1>Welcome to the Bubble App!</h1>
       <div data-testid="loginForm" className="login-form">
         <h2>Build login form here</h2>
+        <form onSubmit={handleLogin}>
           <label>Username:
             <input 
               type='text'
@@ -47,9 +61,10 @@ const Login = () => {
             />
           </label>
           <button id='submit'>Login</button>
+        </form>
       </div>
 
-      {/* <p id="error" className="error">{error}</p> */}
+      <p id="error" className="error">{error}</p>
     </div>
   );
 };
