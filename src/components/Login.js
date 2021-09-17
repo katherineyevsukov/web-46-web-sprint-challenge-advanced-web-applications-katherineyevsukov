@@ -1,20 +1,55 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+
+const initialLoginValues = {
+  username: '',
+  password: ''
+}
 
 const Login = () => {
+  
+  const [loginValues, setLoginValues] = useState(initialLoginValues)
   // make a post request to retrieve a token from the api
   // when you have handled the token, navigate to the BubblePage route
 
   const error = "";
   //replace with error state
 
+  const handleChange = (e) => {
+    setLoginValues({
+      ...loginValues,
+      [e.target.name]: e.target.value
+    })
+    console.log(loginValues)
+  }
+
+
   return (
     <div>
       <h1>Welcome to the Bubble App!</h1>
       <div data-testid="loginForm" className="login-form">
         <h2>Build login form here</h2>
+          <label>Username:
+            <input 
+              type='text'
+              name='username'
+              id='username'
+              value={loginValues.username}
+              onChange={handleChange}
+            />
+          </label>
+          <label>Password:
+            <input 
+              type='password'
+              name='password'
+              id='password'
+              value={loginValues.password}
+              onChange={handleChange}
+            />
+          </label>
+          <button id='submit'>Login</button>
       </div>
 
-      <p id="error" className="error">{error}</p>
+      {/* <p id="error" className="error">{error}</p> */}
     </div>
   );
 };
