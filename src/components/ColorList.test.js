@@ -18,11 +18,11 @@ test("Renders a list of colors without errors", () => {
 });
 
 test("Renders the EditForm when editing = true and does not render EditForm when editing = false", () => {
-    const { rerender } = render(<ColorList colors={mockData} editing={true}/>);
-    let editForm = screen.queryByTestId('edit_menu')
-    expect(editForm).not.toBeNull()
+  const { rerender } = render(<ColorList colors={mockData} editing={true} />);
+  let editForm = screen.queryByTestId("edit_menu");
+  expect(editForm).not.toBeNull();
 
-    rerender(<ColorList colors={mockData} editing={false}/>)
-    editForm = screen.queryByTestId('edit_menu')
-    expect(editForm).toBeNull()
+  rerender(<ColorList colors={mockData} editing={false} />);
+  editForm = screen.queryByTestId("edit_menu");
+  expect(editForm).toBeNull();
 });

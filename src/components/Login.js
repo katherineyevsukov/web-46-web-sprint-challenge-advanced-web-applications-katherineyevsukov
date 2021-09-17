@@ -1,45 +1,39 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
-
+import axios from "axios";
 
 const initialLoginValues = {
-  username: '',
-  password: ''
-}
-
-
+  username: "",
+  password: "",
+};
 
 const Login = (props) => {
-
-  
-  
-  const [loginValues, setLoginValues] = useState(initialLoginValues)
-  const [error, setError] = useState('')
+  const [loginValues, setLoginValues] = useState(initialLoginValues);
+  const [error, setError] = useState("");
   // make a post request to retrieve a token from the api
   // when you have handled the token, navigate to the BubblePage route
 
-  
   //replace with error state
 
   const handleChange = (e) => {
     setLoginValues({
       ...loginValues,
-      [e.target.name]: e.target.value
-    })
-  }
+      [e.target.name]: e.target.value,
+    });
+  };
 
-  const handleLogin = e => {
+  const handleLogin = (e) => {
     e.preventDefault();
 
-    axios.post('http://localhost:5000/api/login', loginValues)
-      .then(res => {
-        localStorage.setItem("token", res.data.payload)
-        props.history.push('/bubbles')
+    axios
+      .post("http://localhost:5000/api/login", loginValues)
+      .then((res) => {
+        localStorage.setItem("token", res.data.payload);
+        props.history.push("/bubbles");
       })
-      .catch(err => {
-        setError(err.message)
-      })
-  }
+      .catch((err) => {
+        setError(err.message);
+      });
+  };
 
   // useEffect(() => {
   //   return function cleanup(){
@@ -48,36 +42,39 @@ const Login = (props) => {
   //   }
   // })
 
-
   return (
     <div>
       <h1>Welcome to the Bubble App!</h1>
       <div data-testid="loginForm" className="login-form">
         <h2>Build login form here</h2>
         <form onSubmit={handleLogin}>
-          <label>Username:
-            <input 
-              type='text'
-              name='username'
-              id='username'
+          <label>
+            Username:
+            <input
+              type="text"
+              name="username"
+              id="username"
               value={loginValues.username}
               onChange={handleChange}
             />
           </label>
-          <label>Password:
-            <input 
-              type='password'
-              name='password'
-              id='password'
+          <label>
+            Password:
+            <input
+              type="password"
+              name="password"
+              id="password"
               value={loginValues.password}
               onChange={handleChange}
             />
           </label>
-          <button id='submit'>Login</button>
+          <button id="submit">Login</button>
         </form>
       </div>
 
-      <p id="error" className="error">{error}</p>
+      <p id="error" className="error">
+        {error}
+      </p>
     </div>
   );
 };
